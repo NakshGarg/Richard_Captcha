@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Richard Captcha</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #f4f4f4;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            display: inline-block;
+        }
+
+        .richard {
+            position: relative;
+            width: 100px;
+            height: 120px;
+            background: #c49a6c;
+            margin: 20px auto;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .hair {
+            width: 60px;
+            height: 20px;
+            background: brown;
+            border-radius: 50%;
+            position: absolute;
+            top: -10px;
+            left: 20px;
+        }
+
+        .eyes {
+            display: flex;
+            justify-content: space-between;
+            width: 50px;
+            position: absolute;
+            top: 40px;
+            left: 25px;
+        }
+
+        .eye {
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .eye::after {
+            content: '';
+            width: 4px;
+            height: 4px;
+            background: black;
+            border-radius: 50%;
+            position: absolute;
+            top: 3px;
+            left: 3px;
+        }
+
+        .eyebrows {
+            position: absolute;
+            top: 30px;
+            left: 25px;
+            width: 50px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .eyebrow {
+            width: 15px;
+            height: 5px;
+            background: brown;
+            border-radius: 5px;
+            transition: 0.3s;
+        }
+
+        .mouth {
+            width: 30px;
+            height: 10px;
+            background: black;
+            border-radius: 5px;
+            position: absolute;
+            bottom: 20px;
+            left: 35px;
+            transition: 0.3s;
+        }
+
+        /* Happy expression */
+        .happy .eyebrows .eyebrow {
+            transform: rotate(15deg);
+        }
+
+        .happy .mouth {
+            background: transparent;
+            border: 2px solid black;
+            border-radius: 50%;
+            height: 15px;
+        }
+
+        /* Sad expression */
+        .sad .eyebrows .eyebrow {
+            transform: rotate(-15deg);
+        }
+
+        .sad .mouth {
+            background: transparent;
+            border: 2px solid black;
+            border-radius: 50%;
+            height: 15px;
+            transform: rotate(180deg);
+        }
+
+        /* Shocked expression */
+        .shocked .eye::after {
+            width: 6px;
+            height: 6px;
+            top: 1px;
+            left: 1px;
+        }
+
+        .shocked .mouth {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: black;
+        }
+
+        input, button {
+            margin-top: 10px;
+            padding: 8px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Prove you're human. Give Richard a compliment.</h2>
+        <div class="richard">
+            <div class="hair"></div>
+            <div class="eyes">
+                <div class="eye left"></div>
+                <div class="eye right"></div>
+            </div>
+            <div class="eyebrows">
+                <div class="eyebrow left"></div>
+                <div class="eyebrow right"></div>
+            </div>
+            <div class="mouth"></div>
+        </div>
+
+        <input type="text" id="compliment" placeholder="Your hair looks fantastic!">
+        <button onclick="tellRichard()">Tell Richard</button>
+    </div>
+
+    <script>
+        function tellRichard() {
+            let compliment = document.getElementById("compliment").value.toLowerCase();
+            let richard = document.querySelector(".richard");
+
+            if (compliment.includes("nice") || compliment.includes("great") || compliment.includes("fantastic") || compliment.includes("you look fantastic")) {
+                richard.classList.remove("sad", "shocked");
+                richard.classList.add("happy");
+            } else if (compliment.includes("bad") || compliment.includes("ugly") || compliment.includes("boring")) {
+                richard.classList.remove("happy", "shocked");
+                richard.classList.add("sad");
+            } else if (compliment.includes("wow") || compliment.includes("amazing")) {
+                richard.classList.remove("happy", "sad");
+                richard.classList.add("shocked");
+            } else {
+                richard.classList.remove("happy", "sad", "shocked");
+            }
+        }
+    </script>
+
+</body>
+</html>
